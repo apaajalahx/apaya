@@ -1,6 +1,6 @@
 <?php
 /**
- * @Author Dinar
+ * @author Dinar
  * y = 10, x = 20 coz this is command line.
  */
 $y=10;
