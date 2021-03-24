@@ -1,8 +1,6 @@
 <?php
 // created by dinar hamid
 // gabut coy woekwoekoke
-$data = [];
-$z = 6;
 $u = 1;
 $x = 1;
 for($i=0;$i<=10;$i++){
