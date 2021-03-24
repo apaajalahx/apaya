@@ -1,14 +1,18 @@
 <?php
+// created by dinar hamid
+// gabut coy woekwoekoke
 $data = [];
-$z = 5;
-$p = [];
+$z = 6;
+$u = 1;
+$x = 1;
 for($i=0;$i<=10;$i++){
-    for($j=$i;$j<=$i;$j++){
-        if(array_key_exists($i,$p)){
-            break;
-        } else {
-            $p[$i] = $i + 1;
-        }
+    for($j=0;$j<=$x-1;$j++){
+        echo $u++." ";
     }
-    echo str_repeat($p[$i]." ",($i>5)?$z--:$i+1)."\n";
+    if($u>21){
+        $x--;
+    } else {
+        $x++;
+    }
+    echo "\n";
 }
