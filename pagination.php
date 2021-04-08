@@ -9,10 +9,13 @@ for($i=0;$i<=$max_limit;$i++){
             $page = $page - 1;
             $pages = ($i+1);
         } elseif($page==$max_limit){
-            $page = $page - 2;
+            $page = $page - 1;
             $pages = $max_limit;
-        } else {
+        }elseif($page==1){
             $pages = ($i+2);
+        } else {
+            $pages = ($i+1);
+            $page = $page - 1;
         }
         for($z=$page;$z<=$pages;$z++){
             echo $z."\n";
