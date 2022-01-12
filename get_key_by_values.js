@@ -1,7 +1,7 @@
     function getKey(object, value, value2){
         for(let i=0;i<=(object.length-1);i++){
             if(object.hasOwnProperty(i)){
-                if(object[i]['BLOCK_NAME'] === value && object[i]['BLOCK_CODE'] === value2){
+                if(object[i] === value && object[i] === value2){
                     return i;
                 }
             }
