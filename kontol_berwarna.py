@@ -1,5 +1,6 @@
 from termcolor import colored
 import random
+from time import sleep
 
 z = ( ['K','k'] , ['O','o'], ['N','n'],['T','t'],['O','o'],['L','l'])
 o = 0
@@ -12,9 +13,9 @@ try:
             u = 0 if o == i else 1
             y += f"{colored(z[i][u],p)}"
         print(f"{y}", end="\r")
+        sleep(0.1)
         o = o + 1
         if o == 6:
             o = 0
 except KeyboardInterrupt:
     print('end', end="\r")
-    
