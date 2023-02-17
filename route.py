@@ -53,6 +53,7 @@ class Route:
                 
         app.register_blueprint(self.blueprint)
 
+        
 def route(endpoint=None, methods=['GET']):
     def decorator(f):
         @wraps(f)
@@ -62,6 +63,7 @@ def route(endpoint=None, methods=['GET']):
         wrapper.endpoint = endpoint
         return wrapper
     return decorator
+
 
 class AuthView(Route):
     
@@ -82,8 +84,19 @@ class AuthView(Route):
         print()
         return 'memek'
 
+
+class UploadView(Route):
+
+    def __init__(self) -> None:
+        super().__init__()
+    
+    @route(endpoint='/upload', methods=['POST'])
+    def upload(self):
+        return 'test'
+
 app = Flask(__name__)
 AuthView().register(app)
+UploadView().register(app)
 print(app.url_map)
 
 app.run('127.0.0.1', 8000, debug=True)
