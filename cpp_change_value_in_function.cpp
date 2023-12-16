@@ -11,8 +11,8 @@
 
 struct AnimalName
 {
-    std::string Dog = "Rizky";
-    int Total = 1; 
+    std::string Dog;
+    int Total;
 };
 
 void testStruct2(AnimalName &a) {
@@ -56,6 +56,8 @@ int main() {
     test(TxBuff);
     std::cout << TxBuff[0] << " END CHECK" << '\n' << std::endl;
     AnimalName animal;
+    animal.Dog = "Rizky";
+    animal.Total = 1;
     std::cout << "Name : " << animal.Dog << "\nType : Dog" << "Total : " << animal.Total << std::endl;
     testStruct(animal);
     std::cout << "Name : " << animal.Dog << "\nType : Dog" << "Total : " << animal.Total << std::endl;
