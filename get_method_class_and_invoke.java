@@ -9,7 +9,8 @@ public class test {
             String prefix = "a";
             Method b = myClass.getDeclaredMethod("get" + prefix);
             apalah obj = new apalah();
-            System.out.println(b.invoke(obj));
+            String res = b.invoke(obj).toString();
+            System.out.println(res);
         } catch(Exception e) {
             e.printStackTrace();
         }
