@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<head>
+<style>
+    .container {
+        width: 400px;
+        height: 400px;
+        position: relative;
+        background: blue;
+        left: 10px;
+        padding: 12px;
+    }
+</style>
+</head>
+    
+<body>
+    <div class="container">
+        <div id="apalah"></div>
+    </div>
+</body>
+<script>
+    // negative top = to top
+    // positive top = to bottom
+    // negative left = to left
+    // positive left = to rigth
+    const MAX_TOP = -10;
+    const MAX_LEFT = -10;
+    const MAX_RIGHT = 400;
+    const MAX_BOTTOM = 400;
+    const MOVE_PX = 1;
+
+    let move_to = 'bottom';
+
+    function gabut() {
+        let isAlive = true;
+        
+        let div = document.getElementById("apalah");
+            switch (move_to) {
+                case 'left':
+                    MoveToLeft(div);
+                    break;
+                case 'right':
+                    MoveToRight(div);
+                    break;
+                case 'top':
+                    MoveToTop(div);
+                    break;
+                case 'bottom':
+                    MoveToBottom(div);
+                    break;
+                default:
+                    break;
+            }
+
+        return 0;
+    }
+
+    function MoveToBottom(div) {
+        if (pxToNum(div.style.top) >= MAX_BOTTOM) {
+            div.style.top = MAX_TOP.toString() + "px";
+            return;
+        }
+        div.style.top = (pxToNum(div.style.top) + MOVE_PX) + "px";
+        return;
+    } 
+
+    function MoveToTop(div) {
+        if (pxToNum(div.style.top) <= MAX_TOP) {
+            div.style.top = MAX_BOTTOM.toString() + "px";
+            return;
+        }
+        div.style.top = (pxToNum(div.style.top) - MOVE_PX) + "px";
+        return;
+    } 
+
+    function MoveToRight(div) {
+        if (pxToNum(div.style.left) >= MAX_RIGHT) {
+            div.style.left = MAX_LEFT.toString() + "px";
+            return;
+        }
+        div.style.left = (pxToNum(div.style.left) + MOVE_PX) + "px";
+        return;
+    }
+
+    function MoveToLeft(div) {
+        if (pxToNum(div.style.left) <= MAX_LEFT) {
+            div.style.left = MAX_RIGHT.toString() + "px";
+            return;
+        }
+        div.style.left = (pxToNum(div.style.left) - MOVE_PX) + "px";
+        return;
+    }
+
+    function pxToNum(px) {
+        return parseInt(px.replace("px"));
+    }
+
+    window.addEventListener('DOMContentLoaded', function(event) {
+        setInterval(gabut, 0);
+    });
+    
+    window.addEventListener('keypress', function(event) {
+        switch(event.keyCode) {
+            case 119:
+                move_to = 'top';
+                break;
+            case 97:
+                move_to = 'left';
+                break;
+            case 115:
+                move_to = 'bottom';
+                break;
+            case 100:
+                move_to = 'right'
+                break;
+        }
+    });
+
+    window.onload = function() {
+        let uler = document.getElementById("apalah");
+        uler.style.width = "10px";
+        uler.style.height = "10px";
+        uler.style.position = "inherit";
+        uler.style.left = "10px";
+        uler.style.top = "-10px";
+        uler.style.color = "red";
+        uler.style.background = "red";
+        uler.style.zIndex = "9999999";
+    }
+
+</script>
+</html>
