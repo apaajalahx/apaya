@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<head>
+<style>
+    .container {
+        width: 400px;
+        height: 400px;
+        position: relative;
+        background: blue;
+        left: 10px;
+        padding: 12px;
+        display:inline-block;
+    }
+</style>
+</head>
+    
+<body>
+    <div class="container">
+        <div id="apalah"></div>
+        <div id="apalah1"></div>
+        <div id="apalah2"></div>
+        <div id="apalah3"></div>
+        <div id="apalah4"></div>
+    </div>
+</body>
+<script>
+    // negative top = to top
+    // positive top = to bottom
+    // negative left = to left
+    // positive left = to right
+    // snake game, but more need improve
+    // mending turu.
+
+    let move_to = 'right';
+    let KeyCode = {
+            119: 'top',
+            97: 'left',
+            115: 'bottom',
+            100: 'right'
+        }
+    let Snakes = [
+        {
+            DIV: document.getElementById("apalah"),
+            NEXT_MOVE: move_to,
+            CURRENT_MOVE: move_to,
+            NEXT_MOVE_POINT: 0,
+            MAX_TOP: -10,
+            MAX_LEFT: -10,
+            MAX_RIGHT: 400,
+            MAX_BOTTOM: 400,
+            MOVE_PX: 1
+        },
+        {
+            DIV: document.getElementById("apalah1"),
+            NEXT_MOVE: move_to,
+            CURRENT_MOVE: move_to,
+            NEXT_MOVE_POINT: 0,
+            MAX_TOP: -20,
+            MAX_LEFT: -10,
+            MAX_RIGHT: 400,
+            MAX_BOTTOM: 390,
+            MOVE_PX: 1
+        },
+        {
+            DIV: document.getElementById("apalah2"),
+            NEXT_MOVE: move_to,
+            CURRENT_MOVE: move_to,
+            NEXT_MOVE_POINT: 0,
+            MAX_TOP: -30,
+            MAX_LEFT: -10,
+            MAX_RIGHT: 400,
+            MAX_BOTTOM: 380,
+            MOVE_PX: 1
+        },
+        {
+            DIV: document.getElementById("apalah3"),
+            NEXT_MOVE: move_to,
+            CURRENT_MOVE: move_to,
+            NEXT_MOVE_POINT: 0,
+            MAX_TOP: -40,
+            MAX_LEFT: -10,
+            MAX_RIGHT: 400,
+            MAX_BOTTOM: 370,
+            MOVE_PX: 1
+        },
+        {
+            DIV: document.getElementById("apalah4"),
+            NEXT_MOVE: move_to,
+            CURRENT_MOVE: move_to,
+            NEXT_MOVE_POINT: 0,
+            MAX_TOP: -50,
+            MAX_LEFT: -10,
+            MAX_RIGHT: 400,
+            MAX_BOTTOM: 360,
+            MOVE_PX: 1
+        }
+    ];
+
+    function gabut() {
+        let isAlive = true;
+        for(let i=0; i<Snakes.length;i++) {
+            let moved;
+            let is_changed_move = false;
+            if (i==0) {
+                moved = move_to;
+                if (Snakes[i].NEXT_MOVE != move_to) {
+                    is_changed_move = true;
+                }
+                Snakes[i].NEXT_MOVE = move_to;
+            } else {
+                moved = Snakes[i].CURRENT_MOVE;
+            }
+
+            switch (moved) {
+                case 'left':
+                    MoveToLeft(Snakes[i]);
+                    break;
+                case 'right':
+                    MoveToRight(Snakes[i]);
+                    break;
+                case 'top':
+                    MoveToTop(Snakes[i]);
+                    break;
+                case 'bottom':
+                    MoveToBottom(Snakes[i]);
+                    break;
+                default:
+                    break;
+            }
+
+            if (is_changed_move) {
+                changeMove(Snakes, i);
+            }
+
+    
+            if(i != 0 && Snakes[i].CURRENT_MOVE != Snakes[i].NEXT_MOVE) {
+                Snakes[i].NEXT_MOVE_POINT += 1;
+                let intToStop = 10;
+                if (Snakes[i].NEXT_MOVE == 'bottom' || Snakes[i].NEXT_MOVE == 'top') {
+                    intToStop = 10 + ((i == 1) ? 0 : i - (i/2));
+                    console.log(intToStop);
+                }
+                if (Snakes[i].NEXT_MOVE_POINT >= intToStop) {
+                    Snakes[i].NEXT_MOVE_POINT = 0;
+                    Snakes[i].CURRENT_MOVE = Snakes[i].NEXT_MOVE;
+                    changeMove(Snakes, i);
+                }
+            }
+        }
+
+        return 0;
+    }
+
+    function changeMove(Snakes, i) {
+        if (typeof Snakes[i + 1] !== "undefined") {
+            Snakes[i + 1].NEXT_MOVE = Snakes[i].NEXT_MOVE;
+        }
+    }
+
+    function MoveToBottom(snake) {
+        if (pxToNum(snake.DIV.style.top) >= snake.MAX_BOTTOM) {
+            snake.DIV.style.top = snake.MAX_TOP.toString() + "px";
+            return;
+        }
+        snake.DIV.style.top = (pxToNum(snake.DIV.style.top) + snake.MOVE_PX) + "px";
+        return;
+    } 
+
+    function MoveToTop(snake) {
+        if (pxToNum(snake.DIV.style.top) <= snake.MAX_TOP) {
+            snake.DIV.style.top = snake.MAX_BOTTOM.toString() + "px";
+            return;
+        }
+        snake.DIV.style.top = (pxToNum(snake.DIV.style.top) - snake.MOVE_PX) + "px";
+        return;
+    } 
+
+    function MoveToRight(snake) {
+        if (pxToNum(snake.DIV.style.left) >= snake.MAX_RIGHT) {
+            snake.DIV.style.left = snake.MAX_LEFT.toString() + "px";
+            return;
+        }
+        snake.DIV.style.left = (pxToNum(snake.DIV.style.left) + snake.MOVE_PX) + "px";
+        return;
+    }
+
+    function MoveToLeft(snake) {
+        if (pxToNum(snake.DIV.style.left) <= snake.MAX_LEFT) {
+            snake.DIV.style.left = snake.MAX_RIGHT.toString() + "px";
+            return;
+        }
+        snake.DIV.style.left = (pxToNum(snake.DIV.style.left) - snake.MOVE_PX) + "px";
+        return;
+    }
+
+    function isNegative(num) {
+        return 0 > num;
+    }
+
+    function pxToNum(px) {
+        return parseInt(px.replace("px"));
+    }
+
+    window.addEventListener('DOMContentLoaded', function(event) {
+        setInterval(gabut, 10);
+    });
+    
+    function setMoveTo(key) {
+        if (move_to == 'bottom') {
+            if (key != 119) {
+                move_to = KeyCode[key];
+            }
+        } else if(move_to == 'top') {
+            if (key != 115) {
+                move_to = KeyCode[key];
+            }
+        } else if(move_to == 'left') {
+            if (key != 100) {
+                move_to = KeyCode[key];
+            }
+        } else if(move_to == 'right') {
+            if (key != 97) {
+                move_to = KeyCode[key];
+            }
+        }
+    }
+
+    window.addEventListener('keypress', function(event) {
+        setMoveTo(event.keyCode);
+    });
+
+    window.onload = function() {
+        let uler = document.getElementById("apalah");
+        uler.style.width = "10px";
+        uler.style.height = "10px";
+        uler.style.position = "inherit";
+        uler.style.left = "50px";
+        uler.style.top = "-10px";
+        uler.style.background = "red";
+        uler.style.zIndex = "9999999";
+
+        // ini demo
+
+        let uler1 = document.getElementById("apalah1");
+        uler1.style.width = "10px";
+        uler1.style.height = "10px";
+        uler1.style.position = "inherit";
+        uler1.style.left = "40px";
+        uler1.style.top = "-20px";
+        uler1.style.background = "white";
+        uler1.style.zIndex = "9999999";
+
+        let uler2 = document.getElementById("apalah2");
+        uler2.style.width = "10px";
+        uler2.style.height = "10px";
+        uler2.style.position = "inherit";
+        uler2.style.left = "30px";
+        uler2.style.top = "-30px";
+        uler2.style.background = "red";
+        uler2.style.zIndex = "9999999";
+
+        let uler3 = document.getElementById("apalah3");
+        uler3.style.width = "10px";
+        uler3.style.height = "10px";
+        uler3.style.position = "inherit";
+        uler3.style.left = "20px";
+        uler3.style.top = "-40px";
+        uler3.style.background = "white";
+        uler3.style.zIndex = "9999999";
+
+        let uler4 = document.getElementById("apalah4");
+        uler4.style.width = "10px";
+        uler4.style.height = "10px";
+        uler4.style.position = "inherit";
+        uler4.style.left = "10px";
+        uler4.style.top = "-50px";
+        uler4.style.background = "red";
+        uler4.style.zIndex = "9999999";
+    }
+
+</script>
+</html>
